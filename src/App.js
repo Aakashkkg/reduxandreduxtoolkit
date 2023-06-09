@@ -12,7 +12,7 @@ const addsubstate = mystate.Addsub
   const dispatch = useDispatch()
   return (
     <>
-
+{/* ma, */}
       <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "150px" }}>
         <button onClick={()=>dispatch()} style={{ background: "green", height: "35px", borderRadius: "3px", color: "white", marginRight: "10px", width: "80px", cursor: "pointer" }}>
           add +
