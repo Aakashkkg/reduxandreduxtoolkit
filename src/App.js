@@ -1,48 +1,74 @@
-import logo from './logo.svg';
-import './App.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { Adata, add, deldata, div, mul, sub } from './actions';
-import { useState } from 'react';
-
+import logo from "./logo.svg";
+import "./App.css";
+import { useDispatch, useSelector } from "react-redux";
+import { Adata, add, deldata, div, mul, sub } from "./actions";
+import { useState } from "react";
+import Chance from "chance";
 function App() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const mystate = useSelector(state => state)
-  const addsubstate = mystate.Addsub
+  const mystate = useSelector((state) => state);
 
-  const divstate = mystate.Divmul
-  let todostate = mystate.Todoapp
-  const [inp, setinp] = useState("")
+  // ======================older redux functions=====================================//
 
-  const [t, setto] = useState(todostate)
+  // const addsubstate = mystate.Addsub
 
-  function addd() {
-    if (inp == "") {
+  // const divstate = mystate.Divmul
+  // let todostate = mystate.Todoapp
+  // const [inp, setinp] = useState("")
 
-    }else{
-      let a = todostate.some((ele) => ele == inp)
-      if (a) {
-        alert("this name is already added")
-      } else {
-        dispatch(Adata(inp))
-        setinp("")
-        let addat = mystate.Todoapp
-        setto(()=>[...addat])
-      }
+  // const [t, setto] = useState(todostate)
 
-    }
-  }
+  // function addd() {
+  //   if (inp == "") {
 
-  // console.log(todostate)
-  function del(ex) {
-    dispatch(deldata(ex))
-    let updatestate = mystate.Todoapp
-    setto(()=>[...updatestate])
-  }
+  //   }else{
+  //     let a = todostate.some((ele) => ele == inp)
+  //     if (a) {
+  //       alert("this name is already added")
+  //     } else {
+  //       dispatch(Adata(inp))
+  //       setinp("")
+  //       let addat = mystate.Todoapp
+  //       setto(()=>[...addat])
+  //     }
+
+  //   }
+  // }
+
+  // // console.log(todostate)
+  // function del(ex) {
+  //   dispatch(deldata(ex))
+  //   let updatestate = mystate.Todoapp
+  //   setto(()=>[...updatestate])
+  // }
+
+
+
+//=========================== new redux toolkit functions=========================//
+
+const [user,setuser] = useState("")
+
+function useradd(e){
+  console.log(e)
+if(user==""){
+
+}else{
+  console.log(user)
+}
+}
+const chance = Chance()
+
+function fakedata(){
+  return chance.name({middle:true})
+}
+
 
   return (
     <>
-      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "100px" }}>
+      {/*=============== older redux functions======================= */}
+
+      {/* <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "100px" }}>
         <button onClick={() => dispatch(add(2))} style={{ background: "green", height: "35px", borderRadius: "3px", color: "white", marginRight: "10px", width: "80px", cursor: "pointer" }}>
           add +
         </button>
@@ -83,9 +109,71 @@ function App() {
           </div>
         ))}
 
+      </div> */}
+
+      {/*========================== new redux functions with redux toolkit======================= */}
+
+      <div
+        style={{
+          width: "400px",
+          minHeight: "400px",
+          borderRadius: "10px",
+          border: "1px solid grey",
+          margin: "auto",
+          marginTop: "100px",
+
+          alignItems: "center",
+          background: "wheat",
+        }}
+      >
+        <div className="inp">
+          <input value={user} onChange={(e) => setuser(e.target.value)} />
+          <button onClick={()=>useradd(fakedata())}>add</button>
+        </div>
+
+        {/* {t.map((row, index) => ( */}
+          <div className="list" >
+            <span>aakash</span>
+            <span>
+              <button>del</button>
+            </span>
+          </div>
+
+          <div className="list" >
+            <span>aakash</span>
+            <span>
+              <button>del</button>
+            </span>
+          </div>
+
+          <div className="list" >
+            <span>aakash</span>
+            <span>
+              <button>del</button>
+            </span>
+          </div>
+
+        {/* ))} */}
+
+        {/* <div>
+          <input style={{ width: "270px", height: "35px" }} />
+          <button
+            style={{
+
+              margin: "0px 5px",
+              background: "purple",
+              color: "white",
+              padding: "10px",
+              cursor: "pointer",
+              borderRadius:"10px",
+              boxSizing:"border-box"
+              
+            }}
+          >
+            ADD USERS
+          </button>
+        </div> */}
       </div>
-
-
     </>
   );
 }
