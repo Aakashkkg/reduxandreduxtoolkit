@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Adata, add, deldata, div, mul, sub } from "./actions";
 import { useState } from "react";
 import Chance from "chance";
+import { adduser, delalluser, deluser } from "./Slices/Userslice";
 function App() {
   const dispatch = useDispatch();
 
@@ -47,22 +48,28 @@ function App() {
 
 //=========================== new redux toolkit functions=========================//
 
-const [user,setuser] = useState("")
 
-function useradd(e){
-  console.log(e)
-if(user==""){
-
-}else{
-  console.log(user)
-}
-}
 const chance = Chance()
-
 function fakedata(){
   return chance.name({middle:true})
 }
 
+function useradd(e){
+  if(e==""){}else{
+  dispatch(adduser(e))
+}
+}
+
+const user = mystate.userdata
+
+console.log(mystate)
+function delx(i){
+dispatch(deluser(i))
+}
+
+function clearalluser(){
+  dispatch(delalluser())
+}
 
   return (
     <>
@@ -127,31 +134,19 @@ function fakedata(){
         }}
       >
         <div className="inp">
-          <input value={user} onChange={(e) => setuser(e.target.value)} />
+        <button onClick={clearalluser}>deleteall</button>
           <button onClick={()=>useradd(fakedata())}>add</button>
         </div>
 
-        {/* {t.map((row, index) => ( */}
-          <div className="list" >
-            <span>aakash</span>
+        {user.map((row, index) => (
+          <div className="list" key={index}>
+            <span>{row}</span>
             <span>
-              <button>del</button>
+              <button onClick={()=>delx(index)}>del</button>
             </span>
           </div>
+        ))}
 
-          <div className="list" >
-            <span>aakash</span>
-            <span>
-              <button>del</button>
-            </span>
-          </div>
-
-          <div className="list" >
-            <span>aakash</span>
-            <span>
-              <button>del</button>
-            </span>
-          </div>
 
         {/* ))} */}
 
